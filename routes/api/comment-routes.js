@@ -1,10 +1,20 @@
-const router = require('express').Router();
-const { addComment, removeComment } = require('../../controllers/comment-controller');
+const router = require("express").Router();
+const {
+  addComment,
+  removeComment,
+  addReply,
+  removeReply,
+} = require("../../controllers/comment-controller");
 
-// /api/comments/<pizzaId> Add a Comment
-router.route('/:pizzaId').post(addComment);
+// Add a Comment /api/comments/<pizzaId>
+// Expects { "writtenBy": "string", "commentBody": "string" }
+router.route("/:pizzaId").post(addComment);
 
-// /api/comments/<pizzaId>/<commentId> Remove a comment
-router.route('/:pizzaId/:commentId').delete(removeComment);
+// Add Reply, delete a comment /api/comments/<pizzaId>/<commentId>
+// Add Reply expects {"replyBody": "Lordy!", "writtenBy": "Sid the Kid" }
+router.route("/:pizzaId/:commentId").put(addReply).delete(removeComment);
+
+// Delete a reply /api/comments/<pizzaId>/<commentId>/<replyId>
+router.route("/:pizzaId/:commentId/:replyId").delete(removeReply);
 
 module.exports = router;
