@@ -11,7 +11,7 @@ const commentController = {
           { _id: params.pizzaId },
           { $push: { comments: _id } },
           // new: true gives us the updated pizza
-          { new: true }
+          { new: true, runValidators: true }
         );
       })
       .then((dbPizzaData) => {
@@ -29,7 +29,7 @@ const commentController = {
       { _id: params.commentId },
       // To avoid duplicates, use addToSet instead of $push
       { $push: { replies: body } },
-      { new: true }
+      { new: true, runValidators: true }
     )
       .then((dbPizzaData) => {
         if (!dbPizzaData) {

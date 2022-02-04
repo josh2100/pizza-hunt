@@ -5,9 +5,16 @@ const PizzaSchema = new Schema(
   {
     pizzaName: {
       type: String,
+      // Validation
+      // required: true,
+      required: "Please provide a pizza name!",
+      trim: true,
     },
     createdBy: {
       type: String,
+      // Validation
+      required: "Please provide a user name!",
+      trim: true,
     },
     createdAt: {
       type: Date,
@@ -16,6 +23,12 @@ const PizzaSchema = new Schema(
     },
     size: {
       type: String,
+      required: "true",
+      // enum: ["Personal", "Small", "Medium", "Large", "Extra Large"],
+      enum: {
+        values: ["Personal", "Small", "Medium", "Large", "Extra Large"],
+        message: "{VALUE} is not a supported size option",
+      },
       default: "Large",
     },
     toppings: [],
